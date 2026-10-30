@@ -51,11 +51,17 @@ jobs:
       - name: Set up build environment
         run: |
           sudo apt update
-          DEBIAN_FRONTEND=noninteractive sudo apt install -yq \
-            attr ccache clang ffmpeg libbrotli-dev libbz2-dev \
-            libgtest-dev libprotobuf-dev libunwind-dev libpcre2-dev \
-            libzstd-dev linux-modules-extra-$(uname -r) lld protobuf-compiler webp
-          sudo modprobe erofs f2fs
+          PACKAGES=(attr ccache clang ffmpeg libbrotli-dev libbz2-dev
+            libgtest-dev libprotobuf-dev libunwind-dev libpcre2-dev
+            libzstd-dev lld protobuf-compiler webp)
+          # Not published yet for freshly rolled out runner kernels, EROFS images are unpacked with fuse.erofs anyway
+          if apt-cache show "linux-modules-extra-$(uname -r)" &> /dev/null; then
+            PACKAGES+=("linux-modules-extra-$(uname -r)")
+          else
+            echo "::warning::linux-modules-extra-$(uname -r) is not available, skipping"
+          fi
+          DEBIAN_FRONTEND=noninteractive sudo apt install -yq "${PACKAGES[@]}"
+          sudo modprobe erofs f2fs || echo "::warning::Could not load erofs/f2fs kernel modules"
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
