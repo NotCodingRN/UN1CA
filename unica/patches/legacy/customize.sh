@@ -150,7 +150,10 @@ if [ "$TARGET_PLATFORM_SDK_VERSION" -lt "35" ]; then
 fi
 
 # Support legacy Face HAL (pre-API 34)
-if [ "$TARGET_PLATFORM_SDK_VERSION" -lt "34" ]; then
+# TODO port 0001-Fallback-to-Face-HIDL-2.0.patch to One UI 8.5. Until then leave the
+# face HAL 3.0 classes alone: deleting them while the patch doesn't apply breaks system_server.
+SKIP_LEGACY_FACE=true
+if ! $SKIP_LEGACY_FACE && [ "$TARGET_PLATFORM_SDK_VERSION" -lt "34" ]; then
     if [ ! -f "$WORK_DIR/vendor/bin/hw/vendor.samsung.hardware.biometrics.face@3.0-service" ]; then
         PATCHED=true
         APPLY_PATCH "system" "system/framework/services.jar" \
@@ -193,7 +196,8 @@ fi
 
 # Ensure config_num_physical_slots is configured (pre-API 36)
 # https://android.googlesource.com/platform/frameworks/opt/telephony/+/42e37234cee15c9f3fcfac0532110abfc8843b99%5E%21/#F0
-if [ "$TARGET_PLATFORM_SDK_VERSION" -lt "36" ]; then
+# - One UI 8.5 already falls back to mCis.length in the UiccController constructor
+if [[ "$(GET_PROP "system" "ro.build.version.oneui")" -lt "80500" ]] && [ "$TARGET_PLATFORM_SDK_VERSION" -lt "36" ]; then
     if [ ! "$(GET_PROP "ro.telephony.sim_slots.count")" ] && \
             ! grep -q "ro.telephony.sim_slots.count" "$WORK_DIR/vendor/bin/secril_config_svc" && \
             ! grep -q -r "config_num_physical_slots" "$WORK_DIR/vendor/overlay"; then
@@ -679,5 +683,5 @@ if [ -d "$TMP_DIR" ]; then
     EVAL "rm -rf \"$TMP_DIR\""
 fi
 
-unset PATCHED TARGET_FIRMWARE_PATH
+unset PATCHED SKIP_LEGACY_FACE TARGET_FIRMWARE_PATH
 unset -f BACKPORT_SF_PROPS EXTRACT_KERNEL_IMAGE EXTRACT_KERNEL_MODULES
