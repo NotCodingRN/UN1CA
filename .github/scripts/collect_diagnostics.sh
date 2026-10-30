@@ -65,6 +65,22 @@ while IFS= read -r MATCH; do
 done < <(find "$APKTOOL_DIR/system/framework/framework.jar" "$APKTOOL_DIR/system/framework/services.jar" \
     -type f \( -name 'IVold*.smali' -o -name 'StorageManagerService.smali' -o -name 'LockSettingsService.smali' \) 2> /dev/null)
 
+# Full decoded trees of everything UN1CA patches with smali diffs, so patches can be reworked offline.
+# Note: folders split by apktool.sh because of the dex limit are already split here.
+DECODED_TREES=()
+for t in system/framework/framework.jar system/framework/services.jar system/framework/semwifi-service.jar \
+        system/framework/telephony-common.jar system/priv-app/SecSettings/SecSettings.apk \
+        system/priv-app/SettingsProvider/SettingsProvider.apk system/priv-app/MultiSoundSetting/MultiSoundSetting.apk \
+        system/priv-app/SecSetupWizard_Global/SecSetupWizard_Global.apk \
+        system/priv-app/SamsungDeviceHealthManagerService/SamsungDeviceHealthManagerService.apk \
+        system/app/DAAgent/DAAgent.apk system_ext/priv-app/SystemUI/SystemUI.apk; do
+    [ -d "$APKTOOL_DIR/$t" ] && DECODED_TREES+=("$t")
+done
+if [ "${#DECODED_TREES[@]}" -gt 0 ]; then
+    tar -C "$APKTOOL_DIR" --exclude="build" --exclude="dist" --exclude="original" --exclude="res" \
+        -cf - "${DECODED_TREES[@]}" | xz -T0 -6 > "$DEST/decoded.tar.xz"
+fi
+
 # Key files from each extracted firmware
 for FW in "$FW_DIR"/*/; do
     [ -d "$FW" ] || continue
