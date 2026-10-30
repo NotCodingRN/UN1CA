@@ -1,0 +1,42 @@
+name: Probe firmware download
+
+on:
+  workflow_dispatch:
+    inputs:
+      firmwares:
+        description: 'Space separated MODEL/CSC list'
+        required: true
+        default: 'SM-S711U1/XAA SM-G780G/BTU'
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+
+    steps:
+      - name: Fetch samloader-rs
+        run: |
+          curl -sSLf -o samloader.zip "https://github.com/topjohnwu/samloader-rs/releases/download/2.2.0/samloader-v2.2.0-linux-x86_64.zip"
+          unzip -o samloader.zip -d samloader
+          SAMLOADER="$(find samloader -type f -name samloader | head -n 1)"
+          chmod +x "$SAMLOADER"
+          echo "SAMLOADER=$PWD/$SAMLOADER" >> "$GITHUB_ENV"
+
+      - name: Show usage
+        run: |
+          "$SAMLOADER" --version
+          "$SAMLOADER" download --help
+          "$SAMLOADER" check-update --help
+
+      - name: Probe downloads
+        run: |
+          for FW in ${{ inputs.firmwares }}; do
+            MODEL="${FW%%/*}"; CSC="${FW##*/}"
+            echo "::group::$MODEL $CSC"
+            "$SAMLOADER" check-update --model "$MODEL" --region "$CSC" || true
+            mkdir -p "dl/${MODEL}_${CSC}"
+            (cd "dl/${MODEL}_${CSC}" && timeout 60 "$SAMLOADER" download --model "$MODEL" --region "$CSC"; echo "exit=$?")
+            ls -la "dl/${MODEL}_${CSC}"
+            du -sh "dl/${MODEL}_${CSC}"
+            echo "::endgroup::"
+          done
