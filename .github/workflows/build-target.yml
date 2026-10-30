@@ -15,6 +15,14 @@ on:
           - diagnose
           - build
         default: 'diagnose'
+      keep_going:
+        description: 'build: debug build that skips patches still failing on the source firmware (test only)'
+        required: false
+        type: boolean
+        default: false
+
+env:
+  KEEP_GOING: ${{ inputs.mode == 'diagnose' || inputs.keep_going }}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.target }}
@@ -74,7 +82,7 @@ jobs:
 
       - name: Generate build config
         run: |
-          if [[ "${{ inputs.mode }}" == "diagnose" ]]; then
+          if [[ "$KEEP_GOING" == "true" ]]; then
             source ./buildenv.sh --debug ${{ inputs.target }}
           else
             source ./buildenv.sh ${{ inputs.target }}
@@ -110,7 +118,7 @@ jobs:
           df -h /
 
       - name: Keep going past failed patches
-        if: inputs.mode == 'diagnose'
+        if: env.KEEP_GOING == 'true'
         run: sed -i 's/^set -e$/set +e/' scripts/internal/apply_modules.sh
 
       - name: Build ROM
