@@ -175,12 +175,6 @@ if [[ "$SOURCE_PRODUCT_SHIPPING_API_LEVEL" != "$TARGET_PRODUCT_SHIPPING_API_LEVE
         "$TARGET_PRODUCT_SHIPPING_API_LEVEL" \
         "$SOURCE_PRODUCT_SHIPPING_API_LEVEL" \
         > /dev/null
-    SMALI_PATCH "system" "system/framework/services.jar" \
-        "smali/com/android/server/enterprise/hdm/HdmVendorController.smali" "replace" \
-        "<init>()V" \
-        "$TARGET_PRODUCT_SHIPPING_API_LEVEL" \
-        "$SOURCE_PRODUCT_SHIPPING_API_LEVEL" \
-        > /dev/null
 fi
 # TODO nuke HdmVendorController.smali
 APPLY_PATCH "system" "system/framework/services.jar" \
