@@ -42,13 +42,28 @@ while IFS= read -r REF; do
     fi
 done < <(grep -a -o -E '/(system|vendor|product|system_ext|odm)/[^" ]+\.(apk|jar)/[^" ]+\.smali' "$DEST/errors.txt" | sort -u)
 
-# Files git apply could not patch
+# Files git apply could not patch, git prints them with the absolute --directory path
+COPY_DECODED()
+{
+    [ -f "$1" ] || return 0
+    mkdir -p "$DEST/patched/$(dirname "${1#"$APKTOOL_DIR"/}")"
+    cp -a "$1" "$DEST/patched/${1#"$APKTOOL_DIR"/}"
+}
 while IFS= read -r REL; do
-    while IFS= read -r MATCH; do
-        mkdir -p "$DEST/patched/$(dirname "${MATCH#"$APKTOOL_DIR"/}")"
-        cp -a "$MATCH" "$DEST/patched/${MATCH#"$APKTOOL_DIR"/}"
-    done < <(find "$APKTOOL_DIR" -path "*/$REL" -type f 2> /dev/null)
-done < <(grep -a -o -E '^error: (patch failed: )?[^: ]+' "$DEST/errors.txt" | sed -E 's/^error: (patch failed: )?//' | sort -u)
+    if [[ "$REL" == /* ]]; then
+        COPY_DECODED "$REL"
+    else
+        while IFS= read -r MATCH; do
+            COPY_DECODED "$MATCH"
+        done < <(find "$APKTOOL_DIR" -path "*/$REL" -type f 2> /dev/null)
+    fi
+done < <(grep -a -o -E '^error: (patch failed: )?[^: ]+' "$DEST/build.log" | sed -E 's/^error: (patch failed: )?//' | sort -u)
+
+# Boot critical classes, always useful when porting a new source firmware
+while IFS= read -r MATCH; do
+    COPY_DECODED "$MATCH"
+done < <(find "$APKTOOL_DIR/system/framework/framework.jar" "$APKTOOL_DIR/system/framework/services.jar" \
+    -type f \( -name 'IVold*.smali' -o -name 'StorageManagerService.smali' -o -name 'LockSettingsService.smali' \) 2> /dev/null)
 
 # Key files from each extracted firmware
 for FW in "$FW_DIR"/*/; do
