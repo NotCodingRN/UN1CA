@@ -18,6 +18,33 @@ THREAD_COUNT=""
 INPUT_FILE=""
 OUTPUT_PATH=""
 
+# SPLIT_SMALI_FOLDER <decoded path> <smali folder>
+# Moves the last ~15% of the classes in the supplied smali folder into a new smali_classesN folder.
+SPLIT_SMALI_FOLDER()
+{
+    local DECODED_PATH="$1"
+    local FOLDER="$2"
+
+    local LAST=1
+    local INDEX
+    while IFS= read -r INDEX; do
+        [ "$INDEX" -gt "$LAST" ] && LAST="$INDEX"
+    done < <(find "$DECODED_PATH" -mindepth 1 -maxdepth 1 -type d -name "smali_classes*" -printf "%f\n" | sed "s/smali_classes//")
+    local NEW_FOLDER="smali_classes$((LAST + 1))"
+
+    local FILES=()
+    mapfile -t FILES < <(cd "$DECODED_PATH/$FOLDER" && find . -type f -name "*.smali" | LC_ALL=C sort)
+    local COUNT=$(( ${#FILES[@]} * 15 / 100 ))
+
+    LOGW "${FOLDER} in ${INPUT_FILE//$WORK_DIR/} exceeds the dex reference limit, moving $COUNT classes to $NEW_FOLDER"
+
+    local f
+    for f in "${FILES[@]: -$COUNT}"; do
+        mkdir -p "$DECODED_PATH/$NEW_FOLDER/$(dirname "$f")"
+        mv "$DECODED_PATH/$FOLDER/$f" "$DECODED_PATH/$NEW_FOLDER/$f"
+    done
+}
+
 BUILD()
 {
     if [ ! -d "$OUTPUT_PATH" ]; then
@@ -32,7 +59,27 @@ BUILD()
     cp -a "$OUTPUT_PATH/original/META-INF" "$OUTPUT_PATH/build/apk/META-INF"
 
     # Build APK with --shorten-resource-paths (https://developer.android.com/tools/aapt2#optimize_options)
-    EVAL "apktool -JXmx${HEAP_SIZE}m b -j \"$THREAD_COUNT\" -p \"$FRAMEWORK_DIR\" -srp \"$OUTPUT_PATH\"" || exit 1
+    # Samsung packs dex files right up to the 64K reference limit, so even a small patch can overflow one:
+    # if that happens, move part of the overflowing smali folder into a new one and try again
+    local CMD="apktool -JXmx${HEAP_SIZE}m b -j \"$THREAD_COUNT\" -p \"$FRAMEWORK_DIR\" -srp \"$OUTPUT_PATH\""
+    local OUT
+    local FOLDER
+    local ATTEMPT
+    for ATTEMPT in 1 2 3 4; do
+        OUT="$(eval "$CMD" 2>&1)" && break
+
+        FOLDER="$(grep -o -E "Could not smali folder: [^ ]+" <<< "$OUT" | cut -d " " -f 5)"
+        if [[ "$ATTEMPT" == "4" ]] || [ ! "$FOLDER" ] || ! grep -q "value out of range: 65536" <<< "$OUT"; then
+            LOGE "Command returned a non-zero exit code\n"
+            echo -e    '\033[0;31m'"$CMD"'\033[0m\n' >&2
+            echo -n -e '\033[0;33m' >&2
+            echo -n    "$OUT" >&2
+            echo -e    '\033[0m' >&2
+            exit 1
+        fi
+
+        SPLIT_SMALI_FOLDER "$OUTPUT_PATH" "$FOLDER"
+    done
 
     local FILE_NAME
     FILE_NAME="$(basename "$INPUT_FILE")"
