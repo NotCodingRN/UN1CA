@@ -15,6 +15,7 @@ IMEI=""
 SERIAL_NO=""
 LATEST_FIRMWARE=""
 ZIP_FILE=""
+SAMLOADER_RS_VERSION="2.2.0"
 
 PREPARE_SCRIPT()
 {
@@ -151,11 +152,16 @@ for i in "${FIRMWARES[@]}"; do
     LOG "- Downloading firmware..."
     [ -f "$ODIN_DIR/${MODEL}_${CSC}/.downloaded" ] && rm -rf "$ODIN_DIR/${MODEL}_${CSC}"
     mkdir -p "$ODIN_DIR/${MODEL}_${CSC}"
-    # Anan's samloader stores its logs in the current working directory, let's move into OUT_DIR just for this time
-    (
-    cd "$OUT_DIR" || exit 1
-    samloader -m "$MODEL" -r "$CSC" -i "$IMEI" -s "$SERIAL_NO" download -O "$ODIN_DIR/${MODEL}_${CSC}" 1> /dev/null || exit 1
-    )
+    # FUS rejects Anan's samloader for some models (e.g. SM-S711U1), samloader-rs doesn't need an IMEI/SN
+    if [ ! -x "$TOOLS_DIR/bin/samloader-rs" ]; then
+        LOG "- Fetching samloader-rs $SAMLOADER_RS_VERSION..."
+        mkdir -p "$TOOLS_DIR/bin" "$TMP_DIR"
+        EVAL "curl -sSLf -o \"$TMP_DIR/samloader-rs.zip\" \"https://github.com/topjohnwu/samloader-rs/releases/download/$SAMLOADER_RS_VERSION/samloader-v$SAMLOADER_RS_VERSION-linux-x86_64.zip\"" || exit 1
+        EVAL "unzip -o -j \"$TMP_DIR/samloader-rs.zip\" samloader -d \"$TMP_DIR\"" || exit 1
+        mv -f "$TMP_DIR/samloader" "$TOOLS_DIR/bin/samloader-rs" && chmod +x "$TOOLS_DIR/bin/samloader-rs"
+        rm -f "$TMP_DIR/samloader-rs.zip"
+    fi
+    EVAL "samloader-rs download -m \"$MODEL\" -r \"$CSC\" -d \"$ODIN_DIR/${MODEL}_${CSC}\"" || exit 1
 
     ZIP_FILE="$(find "$ODIN_DIR/${MODEL}_${CSC}" -name "*.zip" | sort -r | head -n 1)"
     if [ ! "$ZIP_FILE" ] || [ ! -f "$ZIP_FILE" ]; then
