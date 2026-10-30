@@ -27,10 +27,10 @@ UN1CA: this patch is not complete! Please check unica/patches/product_feature/cu
  create mode 100644 smali_classes4/com/samsung/android/settings/biometrics/fingerprint/SuwFingerprintUsefulFeature$$ExternalSyntheticLambda2.smali
  create mode 100644 smali_classes4/com/samsung/android/settings/biometrics/fingerprint/SuwFingerprintUsefulFeature$$ExternalSyntheticLambda6.smali
 
-diff --git a/smali_classes4/com/samsung/android/settings/biometrics/BiometricsDisclaimerActivity.smali b/smali_classes4/com/samsung/android/settings/biometrics/BiometricsDisclaimerActivity.smali
+diff --git a/smali_classes5/com/samsung/android/settings/biometrics/BiometricsDisclaimerActivity.smali b/smali_classes5/com/samsung/android/settings/biometrics/BiometricsDisclaimerActivity.smali
 index 36c8aaca0..d73c8a2f4 100644
---- a/smali_classes4/com/samsung/android/settings/biometrics/BiometricsDisclaimerActivity.smali
-+++ b/smali_classes4/com/samsung/android/settings/biometrics/BiometricsDisclaimerActivity.smali
+--- a/smali_classes5/com/samsung/android/settings/biometrics/BiometricsDisclaimerActivity.smali
++++ b/smali_classes5/com/samsung/android/settings/biometrics/BiometricsDisclaimerActivity.smali
 @@ -1251,7 +1251,7 @@
  
      invoke-static {v3, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
@@ -393,10 +393,10 @@ index 5192d88e4..c6145f649 100644
  .end method
  
  .method public final performClick()V
-diff --git a/smali_classes4/com/samsung/android/settings/biometrics/SuwBiometricsDisclaimerActivity.smali b/smali_classes4/com/samsung/android/settings/biometrics/SuwBiometricsDisclaimerActivity.smali
+diff --git a/smali_classes5/com/samsung/android/settings/biometrics/SuwBiometricsDisclaimerActivity.smali b/smali_classes5/com/samsung/android/settings/biometrics/SuwBiometricsDisclaimerActivity.smali
 index 63308118e..33e6c08d1 100644
---- a/smali_classes4/com/samsung/android/settings/biometrics/SuwBiometricsDisclaimerActivity.smali
-+++ b/smali_classes4/com/samsung/android/settings/biometrics/SuwBiometricsDisclaimerActivity.smali
+--- a/smali_classes5/com/samsung/android/settings/biometrics/SuwBiometricsDisclaimerActivity.smali
++++ b/smali_classes5/com/samsung/android/settings/biometrics/SuwBiometricsDisclaimerActivity.smali
 @@ -352,7 +352,7 @@
  .end method
  
@@ -1482,10 +1482,10 @@ index d07bacad8..a29e46b6c 100644
 +    :cond_b
      return-object p0
  .end method
-diff --git a/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettings.smali b/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettings.smali
+diff --git a/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettings.smali b/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettings.smali
 index 9a728c10b..6aaeebeaa 100644
---- a/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettings.smali
-+++ b/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettings.smali
+--- a/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettings.smali
++++ b/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettings.smali
 @@ -31,6 +31,8 @@
  
  .field public mAlwaysOn:Landroidx/preference/SwitchPreference;
@@ -3061,10 +3061,10 @@ index 9a728c10b..6aaeebeaa 100644
      sput-boolean v3, Lcom/samsung/android/settings/biometrics/fingerprint/FingerprintSettings;->mIsPreferenceClicked:Z
  
      return-void
-diff --git a/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettingsUtils.smali b/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettingsUtils.smali
+diff --git a/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettingsUtils.smali b/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettingsUtils.smali
 index eee7bc80d..abd867e54 100644
---- a/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettingsUtils.smali
-+++ b/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettingsUtils.smali
+--- a/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettingsUtils.smali
++++ b/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettingsUtils.smali
 @@ -131,37 +131,80 @@
      return p0
  .end method
@@ -4476,10 +4476,10 @@ index fde615772..bd99e4066 100644
      iget-object v0, p0, Lcom/samsung/android/settings/biometrics/fingerprint/FingerprintUsefulFeature$FingerprintUsefulFeatureFragment;->mContext:Landroidx/fragment/app/FragmentActivity;
  
      iget v1, p0, Lcom/samsung/android/settings/biometrics/fingerprint/FingerprintUsefulFeature$FingerprintUsefulFeatureFragment;->mUserId:I
-diff --git a/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/RegisterFingerprint.smali b/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/RegisterFingerprint.smali
+diff --git a/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/RegisterFingerprint.smali b/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/RegisterFingerprint.smali
 index 5acdedc3f..0496b88aa 100644
---- a/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/RegisterFingerprint.smali
-+++ b/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/RegisterFingerprint.smali
+--- a/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/RegisterFingerprint.smali
++++ b/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/RegisterFingerprint.smali
 @@ -36,8 +36,6 @@
  
  .field public mSensorStatus:I

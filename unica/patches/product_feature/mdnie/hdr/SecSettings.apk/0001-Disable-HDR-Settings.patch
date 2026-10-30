@@ -11,10 +11,10 @@ Subject: [PATCH] Disable HDR Settings
  .../provider/items/AdvancedFeatureItem.smali  | 1664 ++++++++---------
  5 files changed, 825 insertions(+), 1362 deletions(-)
 
-diff --git a/smali_classes3/com/samsung/android/settings/usefulfeature/UsefulfeatureReset$1.smali b/smali_classes3/com/samsung/android/settings/usefulfeature/UsefulfeatureReset$1.smali
+diff --git a/smali_classes2/com/samsung/android/settings/usefulfeature/UsefulfeatureReset$1.smali b/smali_classes2/com/samsung/android/settings/usefulfeature/UsefulfeatureReset$1.smali
 index e471bd38c..831626ad0 100644
---- a/smali_classes3/com/samsung/android/settings/usefulfeature/UsefulfeatureReset$1.smali
-+++ b/smali_classes3/com/samsung/android/settings/usefulfeature/UsefulfeatureReset$1.smali
+--- a/smali_classes2/com/samsung/android/settings/usefulfeature/UsefulfeatureReset$1.smali
++++ b/smali_classes2/com/samsung/android/settings/usefulfeature/UsefulfeatureReset$1.smali
 @@ -1243,105 +1243,32 @@
  
      invoke-static {v0, v2, p0}, Landroid/provider/Settings$System;->putInt(Landroid/content/ContentResolver;Ljava/lang/String;I)Z
@@ -212,10 +212,10 @@ index e471bd38c..831626ad0 100644
 +    :goto_1b
      return-void
  .end method
-diff --git a/smali_classes3/com/samsung/android/settings/usefulfeature/UsefulfeatureUtils.smali b/smali_classes3/com/samsung/android/settings/usefulfeature/UsefulfeatureUtils.smali
+diff --git a/smali_classes2/com/samsung/android/settings/usefulfeature/UsefulfeatureUtils.smali b/smali_classes2/com/samsung/android/settings/usefulfeature/UsefulfeatureUtils.smali
 index 78e2472ca..a64ae6ff7 100644
---- a/smali_classes3/com/samsung/android/settings/usefulfeature/UsefulfeatureUtils.smali
-+++ b/smali_classes3/com/samsung/android/settings/usefulfeature/UsefulfeatureUtils.smali
+--- a/smali_classes2/com/samsung/android/settings/usefulfeature/UsefulfeatureUtils.smali
++++ b/smali_classes2/com/samsung/android/settings/usefulfeature/UsefulfeatureUtils.smali
 @@ -1127,160 +1127,6 @@
      return v1
  .end method
@@ -604,10 +604,10 @@ index 78e2472ca..a64ae6ff7 100644
  .method public static turnOffFunctionsConflictWithOneHandedMode(Landroid/content/Context;)V
      .locals 8
  
-diff --git a/smali_classes3/com/samsung/android/settings/usefulfeature/videoenhancer/SecBrightenUpVideoPreferenceController.smali b/smali_classes3/com/samsung/android/settings/usefulfeature/videoenhancer/SecBrightenUpVideoPreferenceController.smali
+diff --git a/smali_classes2/com/samsung/android/settings/usefulfeature/videoenhancer/SecBrightenUpVideoPreferenceController.smali b/smali_classes2/com/samsung/android/settings/usefulfeature/videoenhancer/SecBrightenUpVideoPreferenceController.smali
 index 094df75ff..9116b89e9 100644
---- a/smali_classes3/com/samsung/android/settings/usefulfeature/videoenhancer/SecBrightenUpVideoPreferenceController.smali
-+++ b/smali_classes3/com/samsung/android/settings/usefulfeature/videoenhancer/SecBrightenUpVideoPreferenceController.smali
+--- a/smali_classes2/com/samsung/android/settings/usefulfeature/videoenhancer/SecBrightenUpVideoPreferenceController.smali
++++ b/smali_classes2/com/samsung/android/settings/usefulfeature/videoenhancer/SecBrightenUpVideoPreferenceController.smali
 @@ -130,20 +130,7 @@
  .method public getAvailabilityStatus()I
      .locals 0
@@ -630,10 +630,10 @@ index 094df75ff..9116b89e9 100644
  
      return p0
  .end method
-diff --git a/smali_classes3/com/samsung/android/settings/usefulfeature/videoenhancer/VideoEnhancerPreferenceController.smali b/smali_classes3/com/samsung/android/settings/usefulfeature/videoenhancer/VideoEnhancerPreferenceController.smali
+diff --git a/smali_classes2/com/samsung/android/settings/usefulfeature/videoenhancer/VideoEnhancerPreferenceController.smali b/smali_classes2/com/samsung/android/settings/usefulfeature/videoenhancer/VideoEnhancerPreferenceController.smali
 index bec6b7c77..41872c914 100644
---- a/smali_classes3/com/samsung/android/settings/usefulfeature/videoenhancer/VideoEnhancerPreferenceController.smali
-+++ b/smali_classes3/com/samsung/android/settings/usefulfeature/videoenhancer/VideoEnhancerPreferenceController.smali
+--- a/smali_classes2/com/samsung/android/settings/usefulfeature/videoenhancer/VideoEnhancerPreferenceController.smali
++++ b/smali_classes2/com/samsung/android/settings/usefulfeature/videoenhancer/VideoEnhancerPreferenceController.smali
 @@ -132,20 +132,7 @@
  .method public getAvailabilityStatus()I
      .locals 0
@@ -656,10 +656,10 @@ index bec6b7c77..41872c914 100644
  
      return p0
  .end method
-diff --git a/smali_classes4/com/samsung/android/settings/eternal/provider/items/AdvancedFeatureItem.smali b/smali_classes4/com/samsung/android/settings/eternal/provider/items/AdvancedFeatureItem.smali
+diff --git a/smali_classes5/com/samsung/android/settings/eternal/provider/items/AdvancedFeatureItem.smali b/smali_classes5/com/samsung/android/settings/eternal/provider/items/AdvancedFeatureItem.smali
 index b732b4030..4abdc5396 100644
---- a/smali_classes4/com/samsung/android/settings/eternal/provider/items/AdvancedFeatureItem.smali
-+++ b/smali_classes4/com/samsung/android/settings/eternal/provider/items/AdvancedFeatureItem.smali
+--- a/smali_classes5/com/samsung/android/settings/eternal/provider/items/AdvancedFeatureItem.smali
++++ b/smali_classes5/com/samsung/android/settings/eternal/provider/items/AdvancedFeatureItem.smali
 @@ -958,36 +958,11 @@
      goto/16 :goto_2
  

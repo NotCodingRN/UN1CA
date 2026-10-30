@@ -15,10 +15,10 @@ UN1CA: this patch is not complete! Please check unica/patches/product_feature/cu
  ...reenResolutionSingleChoiceController.smali |  10 +-
  8 files changed, 1009 insertions(+), 1630 deletions(-)
 
-diff --git a/smali_classes2/com/android/settings/DisplaySettings$4.smali b/smali_classes2/com/android/settings/DisplaySettings$4.smali
+diff --git a/smali/com/android/settings/DisplaySettings$4.smali b/smali/com/android/settings/DisplaySettings$4.smali
 index b7355543b..7c1466399 100644
---- a/smali_classes2/com/android/settings/DisplaySettings$4.smali
-+++ b/smali_classes2/com/android/settings/DisplaySettings$4.smali
+--- a/smali/com/android/settings/DisplaySettings$4.smali
++++ b/smali/com/android/settings/DisplaySettings$4.smali
 @@ -5,453 +5,405 @@
  
  # virtual methods
@@ -2792,10 +2792,10 @@ index 05a4116c5..c3eb50cc0 100644
  
      return-void
  .end method
-diff --git a/smali_classes4/com/samsung/android/settings/display/SecDisplayUtils.smali b/smali_classes4/com/samsung/android/settings/display/SecDisplayUtils.smali
+diff --git a/smali_classes5/com/samsung/android/settings/display/SecDisplayUtils.smali b/smali_classes5/com/samsung/android/settings/display/SecDisplayUtils.smali
 index 8aa49c018..01a1de70a 100644
---- a/smali_classes4/com/samsung/android/settings/display/SecDisplayUtils.smali
-+++ b/smali_classes4/com/samsung/android/settings/display/SecDisplayUtils.smali
+--- a/smali_classes5/com/samsung/android/settings/display/SecDisplayUtils.smali
++++ b/smali_classes5/com/samsung/android/settings/display/SecDisplayUtils.smali
 @@ -6,16 +6,8 @@
  # static fields
  .field public static final SIGNATURES:[Landroid/content/pm/Signature;

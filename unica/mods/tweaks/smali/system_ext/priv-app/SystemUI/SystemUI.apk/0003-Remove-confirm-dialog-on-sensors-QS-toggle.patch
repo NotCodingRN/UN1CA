@@ -7,10 +7,10 @@ Subject: [PATCH] Remove confirm dialog on sensors QS toggle
  .../qs/tiles/SensorPrivacyToggleTile.smali    | 153 +-----------------
  1 file changed, 8 insertions(+), 145 deletions(-)
 
-diff --git a/smali_classes2/com/android/systemui/qs/tiles/SensorPrivacyToggleTile.smali b/smali_classes2/com/android/systemui/qs/tiles/SensorPrivacyToggleTile.smali
+diff --git a/smali_classes3/com/android/systemui/qs/tiles/SensorPrivacyToggleTile.smali b/smali_classes3/com/android/systemui/qs/tiles/SensorPrivacyToggleTile.smali
 index b77b9fc656..9119a2dae0 100644
---- a/smali_classes2/com/android/systemui/qs/tiles/SensorPrivacyToggleTile.smali
-+++ b/smali_classes2/com/android/systemui/qs/tiles/SensorPrivacyToggleTile.smali
+--- a/smali_classes3/com/android/systemui/qs/tiles/SensorPrivacyToggleTile.smali
++++ b/smali_classes3/com/android/systemui/qs/tiles/SensorPrivacyToggleTile.smali
 @@ -262,166 +262,29 @@
  .end method
  

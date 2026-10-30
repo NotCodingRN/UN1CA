@@ -10,10 +10,10 @@ Subject: [PATCH] Add optical FOD support
  .../fingerprint/RegisterFingerprint.smali     | 330 +++++++---
  4 files changed, 577 insertions(+), 334 deletions(-)
 
-diff --git a/smali_classes4/com/samsung/android/settings/biometrics/BiometricsDisclaimerActivity.smali b/smali_classes4/com/samsung/android/settings/biometrics/BiometricsDisclaimerActivity.smali
+diff --git a/smali_classes5/com/samsung/android/settings/biometrics/BiometricsDisclaimerActivity.smali b/smali_classes5/com/samsung/android/settings/biometrics/BiometricsDisclaimerActivity.smali
 index a7bdd3587..09b7deea9 100644
---- a/smali_classes4/com/samsung/android/settings/biometrics/BiometricsDisclaimerActivity.smali
-+++ b/smali_classes4/com/samsung/android/settings/biometrics/BiometricsDisclaimerActivity.smali
+--- a/smali_classes5/com/samsung/android/settings/biometrics/BiometricsDisclaimerActivity.smali
++++ b/smali_classes5/com/samsung/android/settings/biometrics/BiometricsDisclaimerActivity.smali
 @@ -1475,7 +1475,7 @@
  
      invoke-virtual {v0, v3}, Landroid/widget/TextView;->setText(I)V
@@ -23,10 +23,10 @@ index a7bdd3587..09b7deea9 100644
  
      invoke-virtual {v2, v0}, Landroid/widget/TextView;->setText(I)V
  
-diff --git a/smali_classes4/com/samsung/android/settings/biometrics/SuwBiometricsDisclaimerActivity.smali b/smali_classes4/com/samsung/android/settings/biometrics/SuwBiometricsDisclaimerActivity.smali
+diff --git a/smali_classes5/com/samsung/android/settings/biometrics/SuwBiometricsDisclaimerActivity.smali b/smali_classes5/com/samsung/android/settings/biometrics/SuwBiometricsDisclaimerActivity.smali
 index b7a242cfe..9d678f44c 100644
---- a/smali_classes4/com/samsung/android/settings/biometrics/SuwBiometricsDisclaimerActivity.smali
-+++ b/smali_classes4/com/samsung/android/settings/biometrics/SuwBiometricsDisclaimerActivity.smali
+--- a/smali_classes5/com/samsung/android/settings/biometrics/SuwBiometricsDisclaimerActivity.smali
++++ b/smali_classes5/com/samsung/android/settings/biometrics/SuwBiometricsDisclaimerActivity.smali
 @@ -608,7 +608,7 @@
  
      invoke-virtual {v1, v6}, Landroid/widget/TextView;->setText(I)V
@@ -36,10 +36,10 @@ index b7a242cfe..9d678f44c 100644
  
      invoke-virtual {v5, v1}, Landroid/widget/TextView;->setText(I)V
  
-diff --git a/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettings.smali b/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettings.smali
+diff --git a/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettings.smali b/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettings.smali
 index 6c967cfe5..36e00e048 100644
---- a/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettings.smali
-+++ b/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettings.smali
+--- a/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettings.smali
++++ b/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/FingerprintSettings.smali
 @@ -73,10 +73,14 @@
  
  .field public mLockPatternUtils:Lcom/android/internal/widget/LockPatternUtils;
@@ -1591,10 +1591,10 @@ index 6c967cfe5..36e00e048 100644
 +    :cond_1
      return-void
  .end method
-diff --git a/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/RegisterFingerprint.smali b/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/RegisterFingerprint.smali
+diff --git a/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/RegisterFingerprint.smali b/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/RegisterFingerprint.smali
 index 70b1cc9a3..1f31a63fd 100644
---- a/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/RegisterFingerprint.smali
-+++ b/smali_classes4/com/samsung/android/settings/biometrics/fingerprint/RegisterFingerprint.smali
+--- a/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/RegisterFingerprint.smali
++++ b/smali_classes5/com/samsung/android/settings/biometrics/fingerprint/RegisterFingerprint.smali
 @@ -30,6 +30,8 @@
  
  .field public mIsRunRegister:Z

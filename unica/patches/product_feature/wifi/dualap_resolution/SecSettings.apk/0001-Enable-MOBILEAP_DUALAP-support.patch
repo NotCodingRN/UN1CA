@@ -24,10 +24,10 @@ UN1CA: this patch is not complete! Please check unica/patches/product_feature/cu
  16 files changed, 980 insertions(+), 578 deletions(-)
  create mode 100644 smali_classes3/com/samsung/android/settings/wifi/mobileap/WifiApSmartSwitchBackupRestore$3.smali
 
-diff --git a/smali_classes2/com/android/settings/Utils.smali b/smali_classes2/com/android/settings/Utils.smali
+diff --git a/smali/com/android/settings/Utils.smali b/smali/com/android/settings/Utils.smali
 index d83aeae6e..87949dcc3 100644
---- a/smali_classes2/com/android/settings/Utils.smali
-+++ b/smali_classes2/com/android/settings/Utils.smali
+--- a/smali/com/android/settings/Utils.smali
++++ b/smali/com/android/settings/Utils.smali
 @@ -16,6 +16,8 @@
  
  .field public static final SPF_SupportInstantHotspot:Z
@@ -975,10 +975,10 @@ index 000000000..5ca57b054
 +.class public final Lcom/samsung/android/settings/wifi/mobileap/WifiApSmartSwitchBackupRestore$3;
 +.super Landroid/util/SparseIntArray;
 +.source "qb/103318193 2390ff46673e3ef514dc97fdebae472cba4dc92ba53b83fbd6db12d168e29743"
-diff --git a/smali_classes3/com/samsung/android/settings/wifi/mobileap/WifiApSmartSwitchBackupRestore.smali b/smali_classes3/com/samsung/android/settings/wifi/mobileap/WifiApSmartSwitchBackupRestore.smali
+diff --git a/smali_classes2/com/samsung/android/settings/wifi/mobileap/WifiApSmartSwitchBackupRestore.smali b/smali_classes2/com/samsung/android/settings/wifi/mobileap/WifiApSmartSwitchBackupRestore.smali
 index 475f0b5f6..b632a2803 100644
---- a/smali_classes3/com/samsung/android/settings/wifi/mobileap/WifiApSmartSwitchBackupRestore.smali
-+++ b/smali_classes3/com/samsung/android/settings/wifi/mobileap/WifiApSmartSwitchBackupRestore.smali
+--- a/smali_classes2/com/samsung/android/settings/wifi/mobileap/WifiApSmartSwitchBackupRestore.smali
++++ b/smali_classes2/com/samsung/android/settings/wifi/mobileap/WifiApSmartSwitchBackupRestore.smali
 @@ -3732,31 +3732,33 @@
      const/4 v8, 0x0
  
@@ -3292,10 +3292,10 @@ index 039abede3..5e4142cea 100644
      const-string p0, "isSmartViewEnabled:false"
  
      invoke-static {v3, p0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-diff --git a/smali_classes3/com/samsung/android/settings/wifi/mobileap/utils/WifiApFrameworkUtils.smali b/smali_classes3/com/samsung/android/settings/wifi/mobileap/utils/WifiApFrameworkUtils.smali
+diff --git a/smali_classes2/com/samsung/android/settings/wifi/mobileap/utils/WifiApFrameworkUtils.smali b/smali_classes2/com/samsung/android/settings/wifi/mobileap/utils/WifiApFrameworkUtils.smali
 index ed70ed559..a98c78f19 100644
---- a/smali_classes3/com/samsung/android/settings/wifi/mobileap/utils/WifiApFrameworkUtils.smali
-+++ b/smali_classes3/com/samsung/android/settings/wifi/mobileap/utils/WifiApFrameworkUtils.smali
+--- a/smali_classes2/com/samsung/android/settings/wifi/mobileap/utils/WifiApFrameworkUtils.smali
++++ b/smali_classes2/com/samsung/android/settings/wifi/mobileap/utils/WifiApFrameworkUtils.smali
 @@ -609,7 +609,7 @@
  .end method
  

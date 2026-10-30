@@ -23,21 +23,21 @@ DECODE_APK "system" "system/priv-app/SecSettings/SecSettings.apk"
 # Disable stock OTA references
 if [ ! -f "$WORK_DIR/system/system/priv-app/ChoiDujour/ChoiDujour.apk" ]; then
     SMALI_PATCH "system" "system/priv-app/SecSettings/SecSettings.apk" \
-        "smali_classes3/com/samsung/android/settings/softwareupdate/SoftwareUpdateUtils.smali" "return" \
+        "smali_classes5/com/samsung/android/settings/softwareupdate/SoftwareUpdateUtils.smali" "return" \
         'isOTAUpgradeAllowed(Landroid/content/Context;)Z' \
         'false'
 fi
 
 # Always show One UI minor version
 SMALI_PATCH "system" "system/priv-app/SecSettings/SecSettings.apk" \
-    "smali_classes4/com/samsung/android/settings/deviceinfo/softwareinfo/OneUIVersionPreferenceController.smali" "replace" \
+    "smali_classes5/com/samsung/android/settings/deviceinfo/softwareinfo/OneUIVersionPreferenceController.smali" "replace" \
     'isDeviceWithMicroVersion()Z' \
     'move-result p0' \
     'const/4 p0, 0x1'
 
 # Show real device model number
 SMALI_PATCH "system" "system/priv-app/SecSettings/SecSettings.apk" \
-    "smali_classes4/com/samsung/android/settings/deviceinfo/aboutphone/ModelNameGetter.smali" "replace" \
+    "smali_classes5/com/samsung/android/settings/deviceinfo/aboutphone/ModelNameGetter.smali" "replace" \
     'getModelName()Ljava/lang/String;' \
     'ro.product.model' \
     'ro.boot.em.model'
@@ -73,9 +73,9 @@ while IFS= read -r f; do
 done < <(find "$MODPATH/SecSettings.apk" -type f)
 
 # Add UN1CA Settings SearchIndexableData registrations
-LOG "- Patching \"smali/com/android/settingslib/search/SearchIndexableResourcesMobile.smali\" in /system/system/priv-app/SecSettings.apk"
+LOG "- Patching \"smali_classes2/com/android/settingslib/search/SearchIndexableResourcesMobile.smali\" in /system/system/priv-app/SecSettings.apk"
 SMALI_PATCH "system" "system/priv-app/SecSettings/SecSettings.apk" \
-    "smali/com/android/settingslib/search/SearchIndexableResourcesMobile.smali" "replaceall" \
+    "smali_classes2/com/android/settingslib/search/SearchIndexableResourcesMobile.smali" "replaceall" \
     '.class public final Lcom/android/settingslib/search/SearchIndexableResourcesMobile;' \
     '.class public Lcom/android/settingslib/search/SearchIndexableResourcesMobile;' \
     > /dev/null

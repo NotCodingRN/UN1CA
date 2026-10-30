@@ -2719,10 +2719,10 @@ index 2da8c97782..4ff39f9d08 100644
      new-instance v0, Ljava/lang/IllegalStateException;
  
      const-string/jumbo v1, "post init tasks have already been executed!"
-diff --git a/smali_classes3/com/android/systemui/util/DeviceState.smali b/smali_classes3/com/android/systemui/util/DeviceState.smali
+diff --git a/smali_classes4/com/android/systemui/util/DeviceState.smali b/smali_classes4/com/android/systemui/util/DeviceState.smali
 index 3cb3c5a66d..3f0a91dee2 100644
---- a/smali_classes3/com/android/systemui/util/DeviceState.smali
-+++ b/smali_classes3/com/android/systemui/util/DeviceState.smali
+--- a/smali_classes4/com/android/systemui/util/DeviceState.smali
++++ b/smali_classes4/com/android/systemui/util/DeviceState.smali
 @@ -1176,21 +1176,47 @@
      :catchall_0
      move-exception v1
@@ -2776,10 +2776,10 @@ index 3cb3c5a66d..3f0a91dee2 100644
      :try_start_1
      monitor-exit v0
      :try_end_1
-diff --git a/smali_classes3/com/android/systemui/util/DeviceType.smali b/smali_classes3/com/android/systemui/util/DeviceType.smali
+diff --git a/smali_classes4/com/android/systemui/util/DeviceType.smali b/smali_classes4/com/android/systemui/util/DeviceType.smali
 index 55c4966ad7..213bfa2628 100644
---- a/smali_classes3/com/android/systemui/util/DeviceType.smali
-+++ b/smali_classes3/com/android/systemui/util/DeviceType.smali
+--- a/smali_classes4/com/android/systemui/util/DeviceType.smali
++++ b/smali_classes4/com/android/systemui/util/DeviceType.smali
 @@ -819,7 +819,7 @@
  
      const/4 v1, -0x1

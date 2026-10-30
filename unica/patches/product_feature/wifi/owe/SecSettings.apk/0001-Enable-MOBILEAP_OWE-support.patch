@@ -86,10 +86,10 @@ index c63fc898b..86603a4ef 100644
          :pswitch_1
          :pswitch_0
      .end packed-switch
-diff --git a/smali_classes3/com/samsung/android/settings/wifi/mobileap/WifiApCloudBackupRestore.smali b/smali_classes3/com/samsung/android/settings/wifi/mobileap/WifiApCloudBackupRestore.smali
+diff --git a/smali_classes2/com/samsung/android/settings/wifi/mobileap/WifiApCloudBackupRestore.smali b/smali_classes2/com/samsung/android/settings/wifi/mobileap/WifiApCloudBackupRestore.smali
 index 9595a78f1..834ee20f7 100644
---- a/smali_classes3/com/samsung/android/settings/wifi/mobileap/WifiApCloudBackupRestore.smali
-+++ b/smali_classes3/com/samsung/android/settings/wifi/mobileap/WifiApCloudBackupRestore.smali
+--- a/smali_classes2/com/samsung/android/settings/wifi/mobileap/WifiApCloudBackupRestore.smali
++++ b/smali_classes2/com/samsung/android/settings/wifi/mobileap/WifiApCloudBackupRestore.smali
 @@ -28,7 +28,7 @@
  
  # virtual methods

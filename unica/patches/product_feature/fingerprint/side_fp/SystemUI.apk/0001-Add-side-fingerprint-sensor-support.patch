@@ -19175,10 +19175,10 @@ index 6617e95d37..72f53873fb 100644
  
      :cond_0
      return-void
-diff --git a/smali_classes3/com/android/systemui/util/DeviceState.smali b/smali_classes3/com/android/systemui/util/DeviceState.smali
+diff --git a/smali_classes4/com/android/systemui/util/DeviceState.smali b/smali_classes4/com/android/systemui/util/DeviceState.smali
 index 09110fa05c..5c956068c0 100644
---- a/smali_classes3/com/android/systemui/util/DeviceState.smali
-+++ b/smali_classes3/com/android/systemui/util/DeviceState.smali
+--- a/smali_classes4/com/android/systemui/util/DeviceState.smali
++++ b/smali_classes4/com/android/systemui/util/DeviceState.smali
 @@ -2088,163 +2088,15 @@
  .end method
  
@@ -19345,10 +19345,10 @@ index 09110fa05c..5c956068c0 100644
  .end method
  
  .method public static isSmartViewFitToActiveDisplay()Z
-diff --git a/smali_classes3/com/android/systemui/util/DeviceType.smali b/smali_classes3/com/android/systemui/util/DeviceType.smali
+diff --git a/smali_classes4/com/android/systemui/util/DeviceType.smali b/smali_classes4/com/android/systemui/util/DeviceType.smali
 index 697d363c16..36376ea720 100644
---- a/smali_classes3/com/android/systemui/util/DeviceType.smali
-+++ b/smali_classes3/com/android/systemui/util/DeviceType.smali
+--- a/smali_classes4/com/android/systemui/util/DeviceType.smali
++++ b/smali_classes4/com/android/systemui/util/DeviceType.smali
 @@ -480,7 +480,7 @@
  
      const/4 v1, -0x1

@@ -17,10 +17,10 @@ Subject: [PATCH] Add Adaptive color tone feature
  .../eternal/provider/items/DisplayItem.smali  | 244 ++++++------
  11 files changed, 631 insertions(+), 345 deletions(-)
 
-diff --git a/smali_classes2/com/android/settings/DisplaySettings$4.smali b/smali_classes2/com/android/settings/DisplaySettings$4.smali
+diff --git a/smali/com/android/settings/DisplaySettings$4.smali b/smali/com/android/settings/DisplaySettings$4.smali
 index 36a164cb3..1428beac7 100644
---- a/smali_classes2/com/android/settings/DisplaySettings$4.smali
-+++ b/smali_classes2/com/android/settings/DisplaySettings$4.smali
+--- a/smali/com/android/settings/DisplaySettings$4.smali
++++ b/smali/com/android/settings/DisplaySettings$4.smali
 @@ -33,6 +33,18 @@
  
      invoke-static {v7, v8, v9}, Landroid/provider/Settings$System;->putInt(Landroid/content/ContentResolver;Ljava/lang/String;I)Z
@@ -40,10 +40,10 @@ index 36a164cb3..1428beac7 100644
      new-instance v8, Lcom/samsung/android/settings/display/ScreenModeSettingManager;
  
      invoke-direct {v8, v0}, Lcom/samsung/android/settings/display/ScreenModeSettingManager;-><init>(Landroid/content/Context;)V
-diff --git a/smali_classes4/com/samsung/android/settings/bixby/target/DisplayColorResetAction.smali b/smali_classes4/com/samsung/android/settings/bixby/target/DisplayColorResetAction.smali
+diff --git a/smali_classes5/com/samsung/android/settings/bixby/target/DisplayColorResetAction.smali b/smali_classes5/com/samsung/android/settings/bixby/target/DisplayColorResetAction.smali
 index 908e5df0c..4a02bb87c 100644
---- a/smali_classes4/com/samsung/android/settings/bixby/target/DisplayColorResetAction.smali
-+++ b/smali_classes4/com/samsung/android/settings/bixby/target/DisplayColorResetAction.smali
+--- a/smali_classes5/com/samsung/android/settings/bixby/target/DisplayColorResetAction.smali
++++ b/smali_classes5/com/samsung/android/settings/bixby/target/DisplayColorResetAction.smali
 @@ -5,332 +5,376 @@
  
  # virtual methods
@@ -626,10 +626,10 @@ index 908e5df0c..4a02bb87c 100644
 -    return-object p0
 +    return-object v0
  .end method
-diff --git a/smali_classes4/com/samsung/android/settings/bixby/target/WhiteBalanceAction.smali b/smali_classes4/com/samsung/android/settings/bixby/target/WhiteBalanceAction.smali
+diff --git a/smali_classes5/com/samsung/android/settings/bixby/target/WhiteBalanceAction.smali b/smali_classes5/com/samsung/android/settings/bixby/target/WhiteBalanceAction.smali
 index 3be9740b9..2f07ed0e7 100644
---- a/smali_classes4/com/samsung/android/settings/bixby/target/WhiteBalanceAction.smali
-+++ b/smali_classes4/com/samsung/android/settings/bixby/target/WhiteBalanceAction.smali
+--- a/smali_classes5/com/samsung/android/settings/bixby/target/WhiteBalanceAction.smali
++++ b/smali_classes5/com/samsung/android/settings/bixby/target/WhiteBalanceAction.smali
 @@ -225,7 +225,7 @@
  .end method
  
@@ -723,10 +723,10 @@ index 3be9740b9..2f07ed0e7 100644
      new-instance v0, Landroid/os/Bundle;
  
      invoke-direct {v0}, Landroid/os/Bundle;-><init>()V
-diff --git a/smali_classes4/com/samsung/android/settings/bixbyroutinehandler/BixbyRoutineActionHandler.smali b/smali_classes4/com/samsung/android/settings/bixbyroutinehandler/BixbyRoutineActionHandler.smali
+diff --git a/smali_classes5/com/samsung/android/settings/bixbyroutinehandler/BixbyRoutineActionHandler.smali b/smali_classes5/com/samsung/android/settings/bixbyroutinehandler/BixbyRoutineActionHandler.smali
 index 475853bdc..037b2e6b8 100644
---- a/smali_classes4/com/samsung/android/settings/bixbyroutinehandler/BixbyRoutineActionHandler.smali
-+++ b/smali_classes4/com/samsung/android/settings/bixbyroutinehandler/BixbyRoutineActionHandler.smali
+--- a/smali_classes5/com/samsung/android/settings/bixbyroutinehandler/BixbyRoutineActionHandler.smali
++++ b/smali_classes5/com/samsung/android/settings/bixbyroutinehandler/BixbyRoutineActionHandler.smali
 @@ -3238,9 +3238,9 @@
      goto :goto_2
  
@@ -739,10 +739,10 @@ index 475853bdc..037b2e6b8 100644
  
      :pswitch_3
      invoke-static {p1}, Lcom/samsung/android/settings/Rune;->supportPocketMode(Landroid/content/Context;)Z
-diff --git a/smali_classes4/com/samsung/android/settings/display/NewModePreview$3.smali b/smali_classes4/com/samsung/android/settings/display/NewModePreview$3.smali
+diff --git a/smali_classes5/com/samsung/android/settings/display/NewModePreview$3.smali b/smali_classes5/com/samsung/android/settings/display/NewModePreview$3.smali
 index 492177e5d..7343072b1 100644
---- a/smali_classes4/com/samsung/android/settings/display/NewModePreview$3.smali
-+++ b/smali_classes4/com/samsung/android/settings/display/NewModePreview$3.smali
+--- a/smali_classes5/com/samsung/android/settings/display/NewModePreview$3.smali
++++ b/smali_classes5/com/samsung/android/settings/display/NewModePreview$3.smali
 @@ -24,7 +24,7 @@
  
  # virtual methods
@@ -841,10 +841,10 @@ index 492177e5d..7343072b1 100644
      invoke-virtual {v0, v2}, Landroid/app/AlertDialog$Builder;->setMessage(I)Landroid/app/AlertDialog$Builder;
  
      move-result-object v0
-diff --git a/smali_classes4/com/samsung/android/settings/display/NewModePreview$6.smali b/smali_classes4/com/samsung/android/settings/display/NewModePreview$6.smali
+diff --git a/smali_classes5/com/samsung/android/settings/display/NewModePreview$6.smali b/smali_classes5/com/samsung/android/settings/display/NewModePreview$6.smali
 index 4ce11394e..f039f0706 100644
---- a/smali_classes4/com/samsung/android/settings/display/NewModePreview$6.smali
-+++ b/smali_classes4/com/samsung/android/settings/display/NewModePreview$6.smali
+--- a/smali_classes5/com/samsung/android/settings/display/NewModePreview$6.smali
++++ b/smali_classes5/com/samsung/android/settings/display/NewModePreview$6.smali
 @@ -24,7 +24,7 @@
  
  # virtual methods
@@ -937,10 +937,10 @@ index 4ce11394e..f039f0706 100644
      invoke-interface {p1}, Landroid/content/DialogInterface;->dismiss()V
  
      return-void
-diff --git a/smali_classes4/com/samsung/android/settings/display/NewModePreview.smali b/smali_classes4/com/samsung/android/settings/display/NewModePreview.smali
+diff --git a/smali_classes5/com/samsung/android/settings/display/NewModePreview.smali b/smali_classes5/com/samsung/android/settings/display/NewModePreview.smali
 index 681ea0717..61351e3b4 100644
---- a/smali_classes4/com/samsung/android/settings/display/NewModePreview.smali
-+++ b/smali_classes4/com/samsung/android/settings/display/NewModePreview.smali
+--- a/smali_classes5/com/samsung/android/settings/display/NewModePreview.smali
++++ b/smali_classes5/com/samsung/android/settings/display/NewModePreview.smali
 @@ -1696,6 +1696,22 @@
  
      move-result-object v0
@@ -1110,10 +1110,10 @@ index 681ea0717..61351e3b4 100644
 +    :goto_4
      return-void
  .end method
-diff --git a/smali_classes4/com/samsung/android/settings/display/SecAdaptiveDisplaySettings$21.smali b/smali_classes4/com/samsung/android/settings/display/SecAdaptiveDisplaySettings$21.smali
+diff --git a/smali_classes5/com/samsung/android/settings/display/SecAdaptiveDisplaySettings$21.smali b/smali_classes5/com/samsung/android/settings/display/SecAdaptiveDisplaySettings$21.smali
 index 951e231a7..fe186c94f 100644
---- a/smali_classes4/com/samsung/android/settings/display/SecAdaptiveDisplaySettings$21.smali
-+++ b/smali_classes4/com/samsung/android/settings/display/SecAdaptiveDisplaySettings$21.smali
+--- a/smali_classes5/com/samsung/android/settings/display/SecAdaptiveDisplaySettings$21.smali
++++ b/smali_classes5/com/samsung/android/settings/display/SecAdaptiveDisplaySettings$21.smali
 @@ -5,7 +5,7 @@
  
  # virtual methods
@@ -1195,10 +1195,10 @@ index 951e231a7..fe186c94f 100644
      return-object p0
  .end method
  
-diff --git a/smali_classes4/com/samsung/android/settings/display/SecAdaptiveDisplaySettings.smali b/smali_classes4/com/samsung/android/settings/display/SecAdaptiveDisplaySettings.smali
+diff --git a/smali_classes5/com/samsung/android/settings/display/SecAdaptiveDisplaySettings.smali b/smali_classes5/com/samsung/android/settings/display/SecAdaptiveDisplaySettings.smali
 index e485ea3c6..95a8d498b 100644
---- a/smali_classes4/com/samsung/android/settings/display/SecAdaptiveDisplaySettings.smali
-+++ b/smali_classes4/com/samsung/android/settings/display/SecAdaptiveDisplaySettings.smali
+--- a/smali_classes5/com/samsung/android/settings/display/SecAdaptiveDisplaySettings.smali
++++ b/smali_classes5/com/samsung/android/settings/display/SecAdaptiveDisplaySettings.smali
 @@ -1850,6 +1850,16 @@
  
      sget-object v0, Lcom/samsung/android/settings/Rune;->COMMON_CONFIG_PACKAGE_NAME_SMART_MANAGER:Ljava/lang/String;
@@ -1239,10 +1239,10 @@ index e485ea3c6..95a8d498b 100644
      iget-boolean v0, p0, Lcom/samsung/android/settings/display/SecAdaptiveDisplaySettings;->mIsSupportAdvancedWhiteBalance:Z
  
      if-eqz v0, :cond_2
-diff --git a/smali_classes4/com/samsung/android/settings/display/controller/SecEADPreferenceController.smali b/smali_classes4/com/samsung/android/settings/display/controller/SecEADPreferenceController.smali
+diff --git a/smali_classes5/com/samsung/android/settings/display/controller/SecEADPreferenceController.smali b/smali_classes5/com/samsung/android/settings/display/controller/SecEADPreferenceController.smali
 index fa5ab2f1a..61fcfd22f 100644
---- a/smali_classes4/com/samsung/android/settings/display/controller/SecEADPreferenceController.smali
-+++ b/smali_classes4/com/samsung/android/settings/display/controller/SecEADPreferenceController.smali
+--- a/smali_classes5/com/samsung/android/settings/display/controller/SecEADPreferenceController.smali
++++ b/smali_classes5/com/samsung/android/settings/display/controller/SecEADPreferenceController.smali
 @@ -159,7 +159,7 @@
  
      sget-object p0, Lcom/samsung/android/settings/Rune;->COMMON_CONFIG_PACKAGE_NAME_SMART_MANAGER:Ljava/lang/String;
@@ -1252,10 +1252,10 @@ index fa5ab2f1a..61fcfd22f 100644
  
      return p0
  .end method
-diff --git a/smali_classes4/com/samsung/android/settings/eternal/provider/items/DisplayItem.smali b/smali_classes4/com/samsung/android/settings/eternal/provider/items/DisplayItem.smali
+diff --git a/smali_classes5/com/samsung/android/settings/eternal/provider/items/DisplayItem.smali b/smali_classes5/com/samsung/android/settings/eternal/provider/items/DisplayItem.smali
 index 21f421de9..1336862c9 100644
---- a/smali_classes4/com/samsung/android/settings/eternal/provider/items/DisplayItem.smali
-+++ b/smali_classes4/com/samsung/android/settings/eternal/provider/items/DisplayItem.smali
+--- a/smali_classes5/com/samsung/android/settings/eternal/provider/items/DisplayItem.smali
++++ b/smali_classes5/com/samsung/android/settings/eternal/provider/items/DisplayItem.smali
 @@ -759,7 +759,7 @@
      :goto_1
      packed-switch v12, :pswitch_data_0
