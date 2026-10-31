@@ -1,0 +1,4 @@
+id=codec2
+name=Codec2 fix
+author=Code_by_Mian
+description=Stops the Codec2 HAL component before releasing its surface.

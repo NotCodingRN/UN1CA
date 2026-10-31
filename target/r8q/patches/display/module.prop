@@ -1,0 +1,4 @@
+id=display
+name=Display tweaks
+author=Code_by_Mian
+description=Vulkan HWUI renderer and SurfaceFlinger refresh rate timers.

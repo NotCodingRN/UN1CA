@@ -1,0 +1,7 @@
+# From UN1CA 4.0.9 (unofficial) by Code_by_Mian
+# Applied before unica/patches/legacy, which then leaves these alone
+ro.surface_flinger.enable_frame_rate_override=true
+ro.surface_flinger.game_default_frame_rate_override=60
+ro.surface_flinger.set_idle_timer_ms=250
+ro.surface_flinger.set_touch_timer_ms=300
+ro.hwui.use_vulkan=true

@@ -1,0 +1,5 @@
+# From UN1CA 4.0.9 (unofficial) by Code_by_Mian
+# The libbluetooth_jni.so VaultKeeper hex patch in unica/patches/bluetooth
+# no longer matches on One UI 8.5
+ro.security.vaultkeeper.feature=0
+ro.security.vaultkeeper.native=0
