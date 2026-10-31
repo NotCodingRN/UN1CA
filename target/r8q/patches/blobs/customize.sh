@@ -26,8 +26,12 @@ DELETE_FROM_WORK_DIR "system" "system/lib64/vendor.samsung.hardware.security.hdc
 DELETE_FROM_WORK_DIR "system" "system/lib64/wfd_log.so"
 LOG_STEP_OUT
 
-ADD_TO_WORK_DIR "r9qxxx" "system" "system/lib/libhwui.so" 0 0 644 "u:object_r:system_lib_file:s0"
-ADD_TO_WORK_DIR "r9qxxx" "system" "system/lib64/libhwui.so" 0 0 644 "u:object_r:system_lib_file:s0"
+# The One UI 8.0 libhwui needs android.hardware.graphics.common-V6-ndk.so, which One UI 8.5
+# no longer ships, keep the source one there
+if [[ "$(GET_PROP "system" "ro.build.version.oneui")" -lt "80500" ]]; then
+    ADD_TO_WORK_DIR "r9qxxx" "system" "system/lib/libhwui.so" 0 0 644 "u:object_r:system_lib_file:s0"
+    ADD_TO_WORK_DIR "r9qxxx" "system" "system/lib64/libhwui.so" 0 0 644 "u:object_r:system_lib_file:s0"
+fi
 
 LOG_STEP_IN "- Adding HIDL face biometrics libs"
 ADD_TO_WORK_DIR "r9qxxx" "system" "system/lib/android.hardware.biometrics.face@1.0.so" 0 0 644 "u:object_r:system_lib_file:s0"
