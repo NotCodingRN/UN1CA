@@ -130,6 +130,14 @@ jobs:
             ./scripts/make_rom.sh --build-rom-zip 2>&1 | tee build.log
           fi
 
+      - name: Check SELinux policy
+        if: always()
+        continue-on-error: true
+        run: |
+          DEBIAN_FRONTEND=noninteractive sudo apt install -yq secilc
+          mkdir -p diagnostics
+          ./.github/scripts/check_sepolicy.sh diagnostics/sepolicy.txt
+
       - name: Collect diagnostics
         if: always()
         run: ./.github/scripts/collect_diagnostics.sh build.log diagnostics
