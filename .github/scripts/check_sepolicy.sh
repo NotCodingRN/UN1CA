@@ -38,7 +38,8 @@ ARGS=()
 for f in "${FILES[@]}"; do
     [ -f "$f" ] || continue
     REL="${f#"$WORK_DIR"/}"
-    cp "$f" "$TMP/${REL//\//_}"
+    # The secilc packaged in Ubuntu predates the nlmsg extended permissions (libsepol 3.8)
+    grep -v -F "(nlmsg " "$f" > "$TMP/${REL//\//_}"
     ARGS+=("$TMP/${REL//\//_}")
 done
 
