@@ -5,6 +5,11 @@
 # - DO NOT add any parenthesis or statements (eg. "fabriccrypto" and NOT "expanttypeattribute ... (fabriccrypto)")
 # - DO NOT add unnecessary types or remove the existing ones unless they aren't necessary anymore for all devices
 
+# One UI 8.5 additions
+ENTRIES+="
+vendor_smcinvoke_device
+"
+
 # One UI 8.0 additions
 ENTRIES+="
 heatmap_default
