@@ -675,6 +675,30 @@ if [ "$TARGET_PLATFORM_SDK_VERSION" -lt "35" ]; then
     fi
 fi
 
+# Support kernels without the gpu_mem tracepoint
+# - One UI 8.5 libmeminfo aborts in BpfMapRO::abortOnMismatch() when map_gpuMem_gpu_mem_total_map
+#   is missing, which takes down system_server every time statsd pulls ProcessMemorySnapshot
+# - Check for 'gpu_mem_total' to determine if the tracepoint is in place
+if [[ "$(GET_PROP "system" "ro.build.version.oneui")" -ge "80500" ]]; then
+    EXTRACT_KERNEL_IMAGE
+    if ! grep -q "gpu_mem_total" "$TMP_DIR/out/kernel"; then
+        PATCHED=true
+        # ReadPerProcessGpuMem(), ReadProcessGpuUsageKb()
+        # Before: [paciasp, sub sp, sp, #...]
+        # After: [mov w0, wzr, ret]
+        HEX_PATCH "$WORK_DIR/system/system/lib64/libmeminfo.so" \
+            "3f2303d5ff0307d1fd7b16a9fc6f17a9" "e0031f2ac0035fd6fd7b16a9fc6f17a9"
+        HEX_PATCH "$WORK_DIR/system/system/lib64/libmeminfo.so" \
+            "3f2303d5ff8303d1fd7b0ba9f6570ca9" "e0031f2ac0035fd6fd7b0ba9f6570ca9"
+        # Before: [push.w {r4-r11, lr}] / [push {r4-r7, lr}, sub sp, #...]
+        # After: [movs r0, #0, bx lr]
+        HEX_PATCH "$WORK_DIR/system/system/lib/libmeminfo.so" \
+            "2de9f04f81b02ded048bc0b0" "0020704781b02ded048bc0b0"
+        HEX_PATCH "$WORK_DIR/system/system/lib/libmeminfo.so" \
+            "f0b5b1b014466c4a08ad7a44" "0020704714466c4a08ad7a44"
+    fi
+fi
+
 if ! $PATCHED; then
     LOG "\033[0;33m! Nothing to do\033[0m"
 fi
